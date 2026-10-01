@@ -9,32 +9,32 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap">
 <style>
 /* Layout: una columna central de 1120px con aire editorial; catálogo en grid de tarjetas; reserva como stepper de 4 pasos. */
-/* Paleta clara única (rosas pastel + dorado), igual en tema claro y oscuro del visor. */
+/* Paleta orquídea: malva claro de fondo, magentas y ciruela para acentos, dorado en ornamentos. */
 :root {
   /* paleta de la marca */
-  --blush: #EDD4D4;
-  --petal: #EFCBD6;
-  --orchid: #ECBEDA;
-  --mauve: #E6BED1;
-  --lavender: #DCB4DA;
+  --mauve: #D1ADC9;
+  --orchid: #C274B2;
+  --magenta: #C0529F;
+  --violet: #9E3897;
+  --plum: #812B63;
 
-  --bg: var(--blush);
-  --surface: var(--petal);
-  --surface-2: #F4E2E2;     /* tarjetas, apenas más claras que el fondo */
-  --fg: #3F2233;
-  --muted: #654356;
-  --rose: var(--lavender);
-  --rose-deep: var(--orchid);
-  --rose-ink: #3F2233;
-  --accent-ink: #8A4A76;    /* rosa-malva profundo para texto destacado */
-  --gold: #B8913A;
-  --gold-soft: #E3CB8F;
-  --line: var(--mauve);
-  --lip: #C2456A;
-  --ok: #3E8A5F;
-  --warn: #A57A12;
-  --bad: #B8434F;
-  --shadow: 0 18px 40px -24px rgba(122, 70, 104, .35);
+  --bg: var(--mauve);
+  --surface: #DCC0D5;       /* tinte de --mauve para bloques */
+  --surface-2: #E6D2E1;     /* tarjetas, más claras que el fondo */
+  --fg: #2E1024;
+  --muted: #55304A;
+  --rose: var(--violet);
+  --rose-deep: var(--plum);
+  --rose-ink: #FFFFFF;
+  --accent-ink: var(--plum);
+  --gold: #8E6A1C;          /* dorado oscurecido para leerse sobre malva */
+  --gold-soft: #D9BC78;
+  --line: #B98DB0;
+  --lip: var(--magenta);
+  --ok: #2F6E4A;
+  --warn: #7A5A08;
+  --bad: #9B2335;
+  --shadow: 0 18px 40px -24px rgba(80, 20, 60, .45);
   --display: "Poiret One", "Jost", sans-serif;
   --serif: "Cormorant Garamond", "Georgia", serif;
   --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
@@ -73,7 +73,7 @@ h3 { font-size: 1.35rem; }
 .btn-primary { background: var(--rose); color: var(--rose-ink); border-color: var(--gold); }
 .btn-primary:hover { background: var(--rose-deep); border-color: var(--gold); }
 .btn-gold { border-color: var(--gold); color: var(--fg); }
-.btn-gold:hover { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: var(--magenta); border-color: var(--magenta); color: #fff; }
 .btn-ghost { color: var(--muted); }
 .btn-ghost:hover { color: var(--fg); }
 .btn[disabled] { opacity: .45; cursor: not-allowed; }
@@ -113,7 +113,7 @@ header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; back
 /* ---- Servicios ---- */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 36px; }
 .chip { border: 1px solid var(--line); background: var(--surface-2); padding: 8px 16px; border-radius: 999px; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; color: var(--muted); }
-.chip[aria-pressed="true"] { background: var(--lavender); color: var(--fg); border-color: var(--gold); }
+.chip[aria-pressed="true"] { background: var(--violet); color: #fff; border-color: var(--violet); }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; }
 .card { position: relative; background: var(--surface-2); border: 1px solid var(--line); padding: 26px 24px 22px; display: flex; flex-direction: column; gap: 10px; min-width: 0; transition: transform .2s, box-shadow .2s; }
 .card::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-soft); pointer-events: none; }
@@ -126,7 +126,7 @@ header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; back
 .card .btn { align-self: flex-start; margin-top: 4px; }
 
 /* ---- Nosotras ---- */
-.about { background: linear-gradient(135deg, var(--petal), var(--mauve)); }
+.about { --fg: #FBEAF5; --muted: #EFCFE4; --gold: #E8C77A; --gold-soft: #C99A4E; background: linear-gradient(135deg, var(--violet), var(--plum)); color: var(--fg); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .values { display: grid; gap: 22px; }
 .value { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
@@ -181,7 +181,7 @@ header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; back
 .legend { margin: 12px 0 0; font-size: .78rem; color: var(--muted); }
 
 /* confirmación */
-.summary { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; background: var(--petal); padding: 22px 24px; border: 1px solid var(--line); margin: 0; }
+.summary { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; background: var(--surface); padding: 22px 24px; border: 1px solid var(--line); margin: 0; }
 .summary div { display: grid; gap: 2px; min-width: 0; }
 .summary dt { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .summary dd { margin: 0; font-family: var(--serif); font-size: 1.25rem; font-weight: 500; overflow-wrap: anywhere; }
@@ -202,7 +202,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 32px; font-size:
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
 
 /* ---- Agenda (dueña) ---- */
-.agenda { background: linear-gradient(135deg, var(--petal), var(--orchid)); }
+.agenda { background: linear-gradient(135deg, var(--surface), var(--orchid)); }
 .agenda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
 @media (max-width: 860px) { .agenda-grid { grid-template-columns: 1fr; } }
 .panel { background: var(--surface-2); border: 1px solid var(--line); padding: 24px; display: grid; gap: 18px; min-width: 0; }
