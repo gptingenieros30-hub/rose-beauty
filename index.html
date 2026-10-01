@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Rose Beauty & Aesthetic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: una columna central de 1120px con aire editorial; catálogo en grid de tarjetas; reserva como stepper de 4 pasos. */
+:root {
+  --bg: #FBF3F1;
+  --surface: #F7E3E6;
+  --surface-2: #FFFAF9;
+  --fg: #3E2630;
+  --muted: #7B5B66;
+  --rose: #D9748E;
+  --rose-deep: #B9506E;
+  --rose-ink: #FFFFFF;
+  --gold: #B9933F;
+  --gold-soft: #E6D3A0;
+  --line: #EAD2D5;
+  --lilac: #ECE3F5;
+  --mint: #DFF0E7;
+  --lip: #C2334F;
+  --ok: #3E8A5F;
+  --warn: #B98A1F;
+  --bad: #B8434F;
+  --shadow: 0 18px 40px -24px rgba(94, 46, 62, .35);
+  --display: "Poiret One", "Jost", sans-serif;
+  --serif: "Cormorant Garamond", "Georgia", serif;
+  --sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #231419; --surface: #33202A; --surface-2: #2B1A22; --fg: #F6E8EA; --muted: #CDAEB8;
+    --rose: #E48BA3; --rose-deep: #F2A9BD; --rose-ink: #2A1118; --gold: #D6B566; --gold-soft: #7E6730;
+    --line: #4B3441; --lilac: #3F3352; --mint: #2C4238; --lip: #E85E79; --ok: #7CC79B; --warn: #E0B54E; --bad: #F08A93;
+    --shadow: 0 18px 40px -24px rgba(0,0,0,.7); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #231419; --surface: #33202A; --surface-2: #2B1A22; --fg: #F6E8EA; --muted: #CDAEB8;
+  --rose: #E48BA3; --rose-deep: #F2A9BD; --rose-ink: #2A1118; --gold: #D6B566; --gold-soft: #7E6730;
+  --line: #4B3441; --lilac: #3F3352; --mint: #2C4238; --lip: #E85E79; --ok: #7CC79B; --warn: #E0B54E; --bad: #F08A93;
+  --shadow: 0 18px 40px -24px rgba(0,0,0,.7); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body { background: var(--bg); color: var(--fg); font-family: var(--sans); font-size: 16px; line-height: 1.55; font-weight: 400; margin: 0; }
+img, svg { max-width: 100%; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.wrap { width: min(1120px, 100%); margin-inline: auto; padding-inline: 20px; }
+section { padding-block: 72px; }
+@media (max-width: 640px) { section { padding-block: 48px; } }
+
+/* ---- Tipografía ---- */
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.1; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); }
+h3 { font-size: 1.35rem; }
+.eyebrow { font-family: var(--display); letter-spacing: .28em; text-transform: uppercase; font-size: .78rem; color: var(--gold); display: inline-flex; align-items: center; gap: 14px; }
+.eyebrow::before, .eyebrow.center::after { content: ""; width: 34px; height: 1px; background: var(--gold); }
+.lead { color: var(--muted); max-width: 60ch; font-size: 1.05rem; font-weight: 300; margin: 0; }
+.sec-head { display: grid; gap: 14px; margin-bottom: 40px; }
+.sec-head.center { text-align: center; justify-items: center; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---- Botones ---- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border-radius: 2px; border: 1px solid transparent; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; font-size: .8rem; cursor: pointer; text-decoration: none; transition: background .2s, color .2s, border-color .2s, transform .15s; background: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--rose); color: var(--rose-ink); border-color: var(--rose); }
+.btn-primary:hover { background: var(--rose-deep); border-color: var(--rose-deep); }
+.btn-gold { border-color: var(--gold); color: var(--fg); }
+.btn-gold:hover { background: var(--gold); color: #fff; }
+.btn-ghost { color: var(--muted); }
+.btn-ghost:hover { color: var(--fg); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn-sm { padding: 8px 14px; font-size: .72rem; }
+
+/* ---- Header ---- */
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; position: relative; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand svg { width: 46px; height: 46px; flex: none; }
+.brand b { font-family: var(--display); font-weight: 400; letter-spacing: .18em; text-transform: uppercase; font-size: .95rem; line-height: 1.15; }
+.brand small { display: block; font-family: var(--serif); font-style: italic; font-size: .85rem; letter-spacing: .05em; text-transform: none; color: var(--gold); }
+.links { display: flex; align-items: center; gap: 26px; }
+.links a { text-decoration: none; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.links a:hover { color: var(--fg); }
+.links a.btn { color: var(--rose-ink); }
+.menu-btn { display: none; border: 1px solid var(--line); background: var(--surface-2); padding: 8px 12px; border-radius: 2px; cursor: pointer; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+@media (max-width: 820px) {
+  .menu-btn { display: inline-flex; }
+  .links { display: none; position: absolute; left: -20px; right: -20px; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line); padding: 16px 20px 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .links.open { display: flex; }
+}
+
+/* ---- Hero ---- */
+.hero { position: relative; overflow: hidden; padding-block: 80px 72px; }
+.hero::before { content: ""; position: absolute; inset: 0; background: repeating-conic-gradient(from 180deg at 50% 118%, var(--gold-soft) 0 .6deg, transparent .6deg 5deg); opacity: .32; -webkit-mask: radial-gradient(ellipse at 50% 110%, #000 20%, transparent 68%); mask: radial-gradient(ellipse at 50% 110%, #000 20%, transparent 68%); pointer-events: none; }
+.hero-grid { position: relative; display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+.hero .logo-big { width: min(300px, 70vw); height: auto; aspect-ratio: 1; margin-inline: auto; display: block; filter: drop-shadow(var(--shadow)); }
+.hero h1 { margin-top: 18px; }
+.hero h1 em { font-style: italic; color: var(--rose-deep); }
+.hero .lead { margin-top: 18px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero-meta { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 10px 28px; font-size: .82rem; color: var(--muted); letter-spacing: .04em; }
+.hero-meta span::before { content: "◆"; color: var(--gold); font-size: .5rem; vertical-align: middle; margin-right: 8px; }
+@media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } .hero .logo-big { order: -1; width: min(220px, 60vw); } .hero { text-align: center; padding-block: 48px; } .cta-row, .hero-meta { justify-content: center; } .hero .lead { margin-inline: auto; } }
+
+/* ---- Servicios ---- */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 36px; }
+.chip { border: 1px solid var(--line); background: var(--surface-2); padding: 8px 16px; border-radius: 999px; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; }
+.card { position: relative; background: var(--surface-2); border: 1px solid var(--line); padding: 26px 24px 22px; display: flex; flex-direction: column; gap: 10px; min-width: 0; transition: transform .2s, box-shadow .2s; }
+.card::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--gold-soft); pointer-events: none; }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.card .cat { font-family: var(--display); font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
+.card p { margin: 0; color: var(--muted); font-size: .92rem; font-weight: 300; flex: 1; }
+.card .meta { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 6px; }
+.card .price { font-family: var(--serif); font-size: 1.45rem; font-weight: 600; }
+.card .dur { font-size: .78rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.card .btn { align-self: flex-start; margin-top: 4px; }
+
+/* ---- Nosotras ---- */
+.about { background: var(--surface); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.values { display: grid; gap: 22px; }
+.value { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
+.value .glyph { width: 44px; height: 44px; border: 1px solid var(--gold); display: grid; place-items: center; color: var(--gold); font-family: var(--serif); font-style: italic; font-size: 1.3rem; }
+.value h3 { font-size: 1.2rem; }
+.value p { margin: 4px 0 0; color: var(--muted); font-size: .95rem; font-weight: 300; }
+@media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
+
+/* ---- Reserva ---- */
+.booking { background: var(--surface-2); border: 1px solid var(--line); position: relative; padding: 36px clamp(18px, 4vw, 48px) 40px; }
+.booking::before { content: ""; position: absolute; inset: 8px; border: 1px solid var(--gold-soft); pointer-events: none; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 32px; position: relative; }
+.step { text-align: center; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding-top: 14px; position: relative; }
+.step::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--line); }
+.step.done::before { background: var(--gold); }
+.step.active { color: var(--fg); }
+.step.active::before { background: var(--rose); }
+@media (max-width: 560px) { .step { font-size: .6rem; letter-spacing: .08em; } }
+.pane { position: relative; display: grid; gap: 22px; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select, .field textarea { background: var(--bg); border: 1px solid var(--line); padding: 12px 14px; border-radius: 2px; width: 100%; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); outline: none; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+.pane-nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; }
+.hint { color: var(--muted); font-size: .88rem; font-weight: 300; margin: 0; }
+.err { color: var(--bad); font-size: .85rem; margin: 0; min-height: 1.2em; }
+
+/* calendario + horas */
+.picker { display: grid; grid-template-columns: 1.05fr 1fr; gap: 28px; }
+@media (max-width: 720px) { .picker { grid-template-columns: 1fr; } }
+.cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.cal-head b { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; text-transform: capitalize; }
+.cal-head button { border: 1px solid var(--line); background: var(--bg); width: 34px; height: 34px; cursor: pointer; border-radius: 2px; }
+.cal-head button[disabled] { opacity: .35; cursor: not-allowed; }
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.cal .dow { text-align: center; font-size: .66rem; letter-spacing: .12em; color: var(--muted); padding-bottom: 6px; }
+.cal button { aspect-ratio: 1; border: 1px solid transparent; background: var(--bg); cursor: pointer; border-radius: 2px; font-variant-numeric: tabular-nums; }
+.cal button:hover:not([disabled]) { border-color: var(--gold); }
+.cal button[disabled] { color: var(--muted); opacity: .4; cursor: not-allowed; background: transparent; }
+.cal button.sel { background: var(--rose); color: var(--rose-ink); border-color: var(--rose); }
+.cal button.today { box-shadow: inset 0 0 0 1px var(--gold-soft); }
+.cal .pad { aspect-ratio: 1; }
+.slots-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; gap: 12px; }
+.slots-head b { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.slot { border: 1px solid var(--line); background: var(--bg); padding: 9px 6px; cursor: pointer; border-radius: 2px; font-variant-numeric: tabular-nums; font-size: .92rem; }
+.slot:hover:not([disabled]) { border-color: var(--gold); }
+.slot[disabled] { text-decoration: line-through; color: var(--muted); opacity: .5; cursor: not-allowed; }
+.slot.sel { background: var(--rose); color: var(--rose-ink); border-color: var(--rose); }
+.legend { margin: 12px 0 0; font-size: .78rem; color: var(--muted); }
+
+/* confirmación */
+.summary { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 28px; background: var(--surface); padding: 22px 24px; border: 1px solid var(--line); margin: 0; }
+.summary div { display: grid; gap: 2px; min-width: 0; }
+.summary dt { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.summary dd { margin: 0; font-family: var(--serif); font-size: 1.25rem; font-weight: 500; overflow-wrap: anywhere; }
+@media (max-width: 560px) { .summary { grid-template-columns: 1fr; } }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.note-box { border-left: 2px solid var(--gold); padding: 10px 16px; color: var(--muted); font-size: .9rem; }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 2px; font-size: .85rem; z-index: 50; max-width: calc(100% - 32px); }
+
+/* ---- Contacto ---- */
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+.contact-grid h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.contact-grid p { margin: 0; color: var(--muted); font-weight: 300; }
+.contact-grid .big { font-family: var(--serif); font-size: 1.35rem; color: var(--fg); font-weight: 500; user-select: all; overflow-wrap: anywhere; }
+.hours { display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; font-variant-numeric: tabular-nums; }
+.hours span:nth-child(odd) { color: var(--muted); }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 32px; font-size: .82rem; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+/* ---- Agenda (dueña) ---- */
+.agenda { background: var(--surface); }
+.agenda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+@media (max-width: 860px) { .agenda-grid { grid-template-columns: 1fr; } }
+.panel { background: var(--surface-2); border: 1px solid var(--line); padding: 24px; display: grid; gap: 18px; min-width: 0; }
+.panel h3 { font-size: 1.3rem; }
+.day-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.day-nav input { background: var(--bg); border: 1px solid var(--line); padding: 8px 10px; border-radius: 2px; }
+.day-nav button { border: 1px solid var(--line); background: var(--bg); padding: 8px 12px; cursor: pointer; border-radius: 2px; }
+.res-list { display: grid; gap: 10px; }
+.res { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: start; border: 1px solid var(--line); padding: 12px 14px; background: var(--bg); min-width: 0; }
+.res .t { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.res .who { font-weight: 500; }
+.res .what { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+.res .tools { display: grid; gap: 6px; justify-items: end; }
+.res select { background: var(--surface-2); border: 1px solid var(--line); padding: 4px 8px; font-size: .78rem; border-radius: 2px; }
+.res a, .res button.link { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: none; border: 0; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+.pill { display: inline-block; font-size: .64rem; letter-spacing: .12em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
+.pill.pendiente { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.pill.confirmada { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+.pill.cancelada { background: color-mix(in srgb, var(--bad) 18%, transparent); color: var(--bad); }
+@media (max-width: 520px) { .res { grid-template-columns: 1fr; } .res .tools { justify-items: start; } }
+.empty { text-align: center; padding: 28px 16px; color: var(--muted); border: 1px dashed var(--line); font-weight: 300; }
+.empty b { display: block; font-family: var(--serif); font-size: 1.3rem; color: var(--fg); font-weight: 500; margin-bottom: 4px; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="57" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+    <circle cx="60" cy="60" r="52" fill="none" stroke="var(--gold)" stroke-width=".6"/>
+    <g stroke="var(--gold)" stroke-width=".9" stroke-linecap="round">
+      <line x1="60" y1="9" x2="60" y2="15" transform="rotate(-72 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="17" transform="rotate(-60 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="15" transform="rotate(-48 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="17" transform="rotate(-36 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="15" transform="rotate(-24 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="17" transform="rotate(-12 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="19"/>
+      <line x1="60" y1="9" x2="60" y2="17" transform="rotate(12 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="15" transform="rotate(24 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="17" transform="rotate(36 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="15" transform="rotate(48 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="17" transform="rotate(60 60 60)"/>
+      <line x1="60" y1="9" x2="60" y2="15" transform="rotate(72 60 60)"/>
+    </g>
+    <!-- cabello: ondas art deco -->
+    <path d="M62 30 C 72 25, 85 29, 89 40 C 93 50, 90 60, 86 66 C 90 72, 88 82, 80 86 C 78 78, 80 70, 76 63 C 83 56, 83 44, 75 39 C 70 36, 65 35, 62 30 Z" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M68 37 C 76 41, 79 49, 75 57" fill="none" stroke="var(--gold)" stroke-width="1" stroke-linecap="round"/>
+    <path d="M73 33 C 81 37, 85 45, 82 54" fill="none" stroke="var(--gold)" stroke-width="1" stroke-linecap="round"/>
+    <!-- perfil -->
+    <path d="M62 30 C 55 32, 51 39, 52 46 C 48 50, 45 55, 44 59 C 46 60, 49 60, 50 61 C 49 63, 47 64, 48 66 C 51 66.5, 53 67, 52 69 C 50 71, 49 73, 51 75 C 55 78, 60 78, 64 76 C 66 81, 68 88, 70 95" fill="none" stroke="var(--gold)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- ceja y ojo -->
+    <path d="M54 44.5 C 58 42, 63 42.5, 66 45" fill="none" stroke="var(--gold)" stroke-width="1.3" stroke-linecap="round"/>
+    <path d="M55 51 C 58 49, 62 49, 65 51" fill="none" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M54.5 51.5 L 53 53.5 M56.5 51.2 L 55.6 53.6" stroke="var(--gold)" stroke-width="1" stroke-linecap="round"/>
+    <!-- labios -->
+    <path d="M47.6 66.4 C 49.3 64.6, 51.5 64.6, 53.2 66.2 C 51.8 68.6, 49.4 68.8, 47.6 66.4 Z" fill="var(--lip)"/>
+    <!-- labial -->
+    <g transform="translate(26 70) rotate(-14 6 14)">
+      <rect x="2" y="12" width="9" height="20" rx="1" fill="var(--gold)"/>
+      <rect x="3" y="9" width="7" height="4" fill="var(--gold-soft)"/>
+      <path d="M3.5 9.5 L 9.5 9.5 L 9.5 1.5 L 3.5 5 Z" fill="var(--lip)"/>
+    </g>
+  </symbol>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Rose Beauty & Aesthetic, inicio">
+      <svg viewBox="0 0 120 120"><use href="#logo"/></svg>
+      <b>Rose<small>Beauty &amp; Aesthetic</small></b>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menú</button>
+    <nav class="links" id="navLinks">
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotras">Nosotras</a>
+      <a href="#contacto">Contacto</a>
+      <a href="#agenda" id="navAgenda" hidden>Agenda</a>
+      <a class="btn btn-primary btn-sm" href="#reservar">Reservar cita</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Peluquería · Manicure · Estética</span>
+      <h1>Belleza con la calma de <em>un salón de otra época</em></h1>
+      <p class="lead">Cortes, color, manicure y tratamientos en un espacio pensado para que cada visita sea un momento tuyo. Elige tu servicio, escoge fecha y hora, y recibe la cita directo en tu calendario.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#reservar">Reservar cita</a>
+        <a class="btn btn-gold" href="#servicios">Ver servicios</a>
+      </div>
+      <div class="hero-meta">
+        <span>Lunes a sábado, 9:00 a 19:00</span>
+        <span>Confirmación por WhatsApp</span>
+        <span>Productos profesionales</span>
+      </div>
+    </div>
+    <svg class="logo-big" viewBox="0 0 120 120" role="img" aria-label="Logotipo: rostro femenino de perfil con labial"><use href="#logo"/></svg>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow center">Catálogo</span>
+      <h2>Nuestros servicios</h2>
+      <p class="lead">Precios en pesos colombianos. La duración es aproximada y puede variar según el largo y el estado del cabello o las uñas.</p>
+    </div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar por categoría">
+      <button class="chip" data-cat="todos" aria-pressed="true">Todos</button>
+      <button class="chip" data-cat="peluqueria" aria-pressed="false">Peluquería</button>
+      <button class="chip" data-cat="unas" aria-pressed="false">Manicure &amp; Pedicure</button>
+      <button class="chip" data-cat="tratamientos" aria-pressed="false">Tratamientos</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="about" id="nosotras">
+  <div class="wrap about-grid">
+    <div class="sec-head" style="margin-bottom:0">
+      <span class="eyebrow">Nosotras</span>
+      <h2>Un salón pequeño, con tiempo para ti</h2>
+      <p class="lead">Rose nació como un espacio íntimo donde la peluquería y el cuidado de las uñas se hacen sin prisa. Trabajamos con cita para dedicarte toda la atención, y usamos productos profesionales que cuidan el cabello y la piel tanto como el resultado.</p>
+    </div>
+    <div class="values">
+      <div class="value"><div class="glyph">R</div><div><h3>Atención con cita</h3><p>Cada reserva bloquea el tiempo completo del servicio. Nunca atendemos a dos personas a la vez.</p></div></div>
+      <div class="value"><div class="glyph">B</div><div><h3>Productos que cuidan</h3><p>Líneas profesionales sin amoníaco para color y esmaltes de larga duración con secado en lámpara.</p></div></div>
+      <div class="value"><div class="glyph">A</div><div><h3>Asesoría honesta</h3><p>Antes de cualquier cambio de color o técnica te decimos qué le conviene a tu cabello y a tus uñas.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="reservar">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow center">Reserva</span>
+      <h2>Reserva tu cita</h2>
+      <p class="lead">Elige el servicio, la fecha y la hora. Al final podrás añadir la cita a tu Google Calendar y confirmarla con nosotras por WhatsApp.</p>
+    </div>
+    <div class="booking" id="booking">
+      <div class="steps" aria-hidden="true">
+        <div class="step active" data-step="1">1 · Servicio</div>
+        <div class="step" data-step="2">2 · Fecha y hora</div>
+        <div class="step" data-step="3">3 · Tus datos</div>
+        <div class="step" data-step="4">4 · Confirmación</div>
+      </div>
+
+      <div class="pane" data-pane="1">
+        <div class="field">
+          <label for="svc">Servicio</label>
+          <select id="svc"></select>
+        </div>
+        <p class="hint" id="svcHint"></p>
+        <div class="pane-nav"><span></span><button class="btn btn-primary" id="to2">Elegir fecha y hora</button></div>
+      </div>
+
+      <div class="pane" data-pane="2" hidden>
+        <div class="picker" id="pubPicker"></div>
+        <p class="err" id="err2"></p>
+        <div class="pane-nav"><button class="btn btn-ghost" data-back="1">Volver</button><button class="btn btn-primary" id="to3">Continuar</button></div>
+      </div>
+
+      <div class="pane" data-pane="3" hidden>
+        <div class="row2">
+          <div class="field"><label for="nombre">Nombre</label><input id="nombre" autocomplete="name" placeholder="Tu nombre"></div>
+          <div class="field"><label for="tel">Teléfono / WhatsApp</label><input id="tel" autocomplete="tel" inputmode="tel" placeholder="300 123 4567"></div>
+        </div>
+        <div class="field"><label for="notas">Notas (opcional)</label><textarea id="notas" rows="3" placeholder="Alergias, referencia de color, largo actual..."></textarea></div>
+        <p class="err" id="err3"></p>
+        <div class="pane-nav"><button class="btn btn-ghost" data-back="2">Volver</button><button class="btn btn-primary" id="to4">Revisar reserva</button></div>
+      </div>
+
+      <div class="pane" data-pane="4" hidden>
+        <dl class="summary" id="summary"></dl>
+        <div class="actions">
+          <a class="btn btn-primary" id="gcalLink" href="#" target="_blank" rel="noopener">Añadir a Google Calendar</a>
+          <a class="btn btn-gold" id="waLink" href="#" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+          <button class="btn btn-ghost" id="copyBtn">Copiar resumen</button>
+        </div>
+        <div class="note-box">El evento de Google Calendar se crea en tu calendario e invita al salón, así la cita queda en ambas agendas. La reserva queda confirmada cuando te respondemos por WhatsApp.</div>
+        <div class="pane-nav"><button class="btn btn-ghost" data-back="3">Volver</button><button class="btn btn-ghost" id="restart">Hacer otra reserva</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="agenda" id="agenda" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Solo para el salón</span>
+      <h2>Agenda</h2>
+      <p class="lead">Esta sección solo la ves tú como dueña de la página. Registra aquí las citas que confirmas por WhatsApp para que los horarios ocupados dejen de ofrecerse a los clientes.</p>
+    </div>
+    <div class="agenda-grid">
+      <div class="panel">
+        <h3>Reservas del día</h3>
+        <div class="day-nav">
+          <button id="dayPrev" aria-label="Día anterior">‹</button>
+          <input type="date" id="dayInput">
+          <button id="dayNext" aria-label="Día siguiente">›</button>
+          <button id="dayToday">Hoy</button>
+        </div>
+        <div class="res-list" id="resList"></div>
+      </div>
+      <div class="panel">
+        <h3>Registrar reserva</h3>
+        <div class="field"><label for="aSvc">Servicio</label><select id="aSvc"></select></div>
+        <div class="picker" id="admPicker"></div>
+        <div class="row2">
+          <div class="field"><label for="aNombre">Cliente</label><input id="aNombre" placeholder="Nombre"></div>
+          <div class="field"><label for="aTel">Teléfono</label><input id="aTel" inputmode="tel" placeholder="300 123 4567"></div>
+        </div>
+        <div class="field"><label for="aNotas">Notas</label><input id="aNotas" placeholder="Opcional"></div>
+        <p class="err" id="aErr"></p>
+        <div class="actions"><button class="btn btn-primary" id="aSave">Guardar reserva</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Contacto</span>
+      <h2>Ven a visitarnos</h2>
+    </div>
+    <div class="contact-grid">
+      <div><h3>Dirección</h3><p class="big">Calle 85 # 12-34, Local 2</p><p>Bogotá, Colombia</p></div>
+      <div><h3>WhatsApp</h3><p class="big">+57 300 123 4567</p><p>Escríbenos para confirmar o cambiar tu cita.</p></div>
+      <div><h3>Correo</h3><p class="big">citas@rosebeauty.co</p><p>Recibe aquí las invitaciones de calendario.</p></div>
+      <div><h3>Horario</h3><div class="hours num"><span>Lun – Vie</span><span>9:00 – 19:00</span><span>Sábado</span><span>9:00 – 19:00</span><span>Domingo</span><span>Cerrado</span></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Rose Beauty &amp; Aesthetic</span>
+    <span>Precios y datos de contacto de ejemplo, pendientes de confirmar por el salón.</span>
+  </div>
+</footer>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ---------- Datos del salón (edita aquí) ---------- */
+const SALON = {
+  nombre: 'Rose Beauty & Aesthetic',
+  email: 'citas@rosebeauty.co',
+  whatsapp: '573001234567',
+  direccion: 'Calle 85 # 12-34, Local 2, Bogotá',
+  tz: 'America/Bogota',
+  abre: 9 * 60, cierra: 19 * 60, paso: 30, cerrado: [0] /* 0 = domingo */
+};
+const CATS = { peluqueria: 'Peluquería', unas: 'Manicure & Pedicure', tratamientos: 'Tratamientos' };
+const SERVICIOS = [
+  { id: 'corte-dama', cat: 'peluqueria', nombre: 'Corte de dama', desc: 'Corte a tu medida con lavado y acabado natural.', dur: 45, precio: 55000 },
+  { id: 'corte-peinado', cat: 'peluqueria', nombre: 'Corte y peinado', desc: 'Corte más secado con cepillo o plancha.', dur: 60, precio: 75000 },
+  { id: 'brushing', cat: 'peluqueria', nombre: 'Brushing', desc: 'Lavado y secado con cepillo, liso u ondas suaves.', dur: 40, precio: 40000 },
+  { id: 'color', cat: 'peluqueria', nombre: 'Color completo', desc: 'Tinte de raíz a puntas con línea sin amoníaco.', dur: 120, precio: 180000 },
+  { id: 'balayage', cat: 'peluqueria', nombre: 'Balayage', desc: 'Aclarado a mano alzada con matiz y tratamiento.', dur: 180, precio: 320000 },
+  { id: 'mechas', cat: 'peluqueria', nombre: 'Mechas e iluminaciones', desc: 'Luces finas o contrastes, con matiz incluido.', dur: 150, precio: 260000 },
+  { id: 'keratina', cat: 'peluqueria', nombre: 'Keratina', desc: 'Alisado progresivo sin formol, efecto hasta 3 meses.', dur: 150, precio: 240000 },
+  { id: 'peinado-evento', cat: 'peluqueria', nombre: 'Peinado de evento', desc: 'Recogidos, ondas o trenzas para una ocasión especial.', dur: 60, precio: 90000 },
+  { id: 'mani-clasico', cat: 'unas', nombre: 'Manicure clásico', desc: 'Limado, cutícula, hidratación y esmalte tradicional.', dur: 45, precio: 35000 },
+  { id: 'mani-semi', cat: 'unas', nombre: 'Manicure semipermanente', desc: 'Esmaltado en gel con secado en lámpara, dura 3 semanas.', dur: 60, precio: 60000 },
+  { id: 'acrilicas', cat: 'unas', nombre: 'Uñas acrílicas o en gel', desc: 'Construcción con forma a elegir: almendra, coffin, cuadrada.', dur: 120, precio: 140000 },
+  { id: 'pedi-spa', cat: 'unas', nombre: 'Pedicure spa', desc: 'Exfoliación, mascarilla, masaje y esmaltado.', dur: 60, precio: 55000 },
+  { id: 'nail-art', cat: 'unas', nombre: 'Nail art', desc: 'Diseños a mano alzada o con decoración, precio por mano.', dur: 30, precio: 25000 },
+  { id: 'hidratacion', cat: 'tratamientos', nombre: 'Hidratación profunda', desc: 'Mascarilla reparadora con vapor para cabello seco o teñido.', dur: 45, precio: 70000 },
+  { id: 'botox', cat: 'tratamientos', nombre: 'Botox capilar', desc: 'Reconstrucción y brillo sin alisar la forma natural.', dur: 90, precio: 160000 },
+  { id: 'cejas', cat: 'tratamientos', nombre: 'Diseño y laminado de cejas', desc: 'Perfilado con hilo, laminado y tinte a juego.', dur: 40, precio: 65000 }
+];
+
+/* ---------- Utilidades puras ---------- */
+const pad = n => String(n).padStart(2, '0');
+const money = n => '$' + n.toLocaleString('es-CO');
+const minToHM = m => pad(Math.floor(m / 60)) + ':' + pad(m % 60);
+const hmToMin = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
+const ymd = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+const parseYmd = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const durTxt = m => m >= 60 ? (m % 60 ? `${Math.floor(m / 60)} h ${m % 60} min` : `${m / 60} h`) : `${m} min`;
+const fechaLarga = s => parseYmd(s).toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+/* Horarios de un día para un servicio, excluyendo pasados y ocupados. */
+function buildSlots(dateStr, duracion, ocupados, now) {
+  const d = parseYmd(dateStr);
+  if (SALON.cerrado.includes(d.getDay())) return [];
+  const hoy = now && ymd(now) === dateStr;
+  const nowMin = hoy ? now.getHours() * 60 + now.getMinutes() : -1;
+  const out = [];
+  for (let t = SALON.abre; t + duracion <= SALON.cierra; t += SALON.paso) {
+    let available = true, reason = '';
+    if (hoy && t <= nowMin) { available = false; reason = 'pasado'; }
+    else for (const o of ocupados) {
+      if (o.date !== dateStr || o.status === 'cancelada') continue;
+      const os = hmToMin(o.time), oe = os + (o.duration || SALON.paso);
+      if (t < oe && t + duracion > os) { available = false; reason = 'ocupado'; break; }
+    }
+    out.push({ time: minToHM(t), available, reason });
+  }
+  return out;
+}
+
+/* URL "añadir a Google Calendar" con el salón como invitado. */
+function buildCalendarUrl(r) {
+  const [y, mo, d] = r.date.split('-').map(Number), [h, mi] = r.time.split(':').map(Number);
+  const start = new Date(y, mo - 1, d, h, mi), end = new Date(start.getTime() + r.duration * 60000);
+  const fmt = x => x.getFullYear() + pad(x.getMonth() + 1) + pad(x.getDate()) + 'T' + pad(x.getHours()) + pad(x.getMinutes()) + '00';
+  const details = [`Servicio: ${r.servicio}`, `Duración: ${durTxt(r.duration)}`, `Precio: ${money(r.precio)}`, r.nombre ? `Cliente: ${r.nombre}` : '', r.telefono ? `Teléfono: ${r.telefono}` : '', r.notas ? `Notas: ${r.notas}` : ''].filter(Boolean).join('\n');
+  const p = new URLSearchParams({ action: 'TEMPLATE', text: `${r.servicio} · ${SALON.nombre}`, dates: fmt(start) + '/' + fmt(end), details, location: SALON.direccion, ctz: SALON.tz, add: SALON.email });
+  return 'https://calendar.google.com/calendar/render?' + p.toString();
+}
+function resumenTexto(r) {
+  return `Hola Rose, quiero reservar:\n• ${r.servicio} (${durTxt(r.duration)}, ${money(r.precio)})\n• ${fechaLarga(r.date)}, ${r.time}\n• Nombre: ${r.nombre}\n• Teléfono: ${r.telefono}` + (r.notas ? `\n• Notas: ${r.notas}` : '');
+}
+function buildWhatsappUrl(r) { return 'https://wa.me/' + SALON.whatsapp + '?text=' + encodeURIComponent(resumenTexto(r)); }
+
+/* ---------- Estado compartido ---------- */
+let ocupados = []; /* {id, date, time, duration, status} desde la base de datos del artifact */
+const pickers = [];
+
+/* ---------- Catálogo ---------- */
+const grid = document.getElementById('grid');
+grid.innerHTML = SERVICIOS.map(s => `
+  <article class="card" data-cat="${s.cat}">
+    <span class="cat">${CATS[s.cat]}</span>
+    <h3>${s.nombre}</h3>
+    <p>${s.desc}</p>
+    <div class="meta"><span class="price num">${money(s.precio)}</span><span class="dur">${durTxt(s.dur)}</span></div>
+    <button class="btn btn-gold btn-sm" data-book="${s.id}">Reservar</button>
+  </article>`).join('');
+document.getElementById('filters').addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c === b));
+  const cat = b.dataset.cat;
+  grid.querySelectorAll('.card').forEach(c => { c.hidden = cat !== 'todos' && c.dataset.cat !== cat; });
+});
+grid.addEventListener('click', e => {
+  const b = e.target.closest('[data-book]'); if (!b) return;
+  svcSel.value = b.dataset.book; updHint();
+  showPane(1);
+  document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' });
+});
+
+/* ---------- Selector de fecha y hora (reutilizable) ---------- */
+function createPicker(root, getDur) {
+  const now = new Date();
+  const st = { view: new Date(now.getFullYear(), now.getMonth(), 1), date: null, time: null };
+  root.innerHTML = `
+    <div>
+      <div class="cal-head"><button type="button" data-m="-1" aria-label="Mes anterior">‹</button><b></b><button type="button" data-m="1" aria-label="Mes siguiente">›</button></div>
+      <div class="cal"></div>
+      <p class="legend">Cerramos los domingos.</p>
+    </div>
+    <div>
+      <div class="slots-head"><b>Hora</b><span class="legend" style="margin:0"></span></div>
+      <div class="slots"></div>
+    </div>`;
+  const head = root.querySelector('.cal-head b'), cal = root.querySelector('.cal'), slots = root.querySelector('.slots'), slotsNote = root.querySelector('.slots-head .legend');
+  const onChange = [];
+  function renderCal() {
+    const v = st.view, today = ymd(new Date());
+    head.textContent = v.toLocaleDateString('es-CO', { month: 'long', year: 'numeric' });
+    const first = (v.getDay() + 6) % 7, days = new Date(v.getFullYear(), v.getMonth() + 1, 0).getDate();
+    let h = ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(x => `<div class="dow">${x}</div>`).join('');
+    for (let i = 0; i < first; i++) h += '<div class="pad"></div>';
+    for (let d = 1; d <= days; d++) {
+      const dt = new Date(v.getFullYear(), v.getMonth(), d), s = ymd(dt);
+      const dis = s < today || SALON.cerrado.includes(dt.getDay());
+      h += `<button type="button" data-d="${s}" ${dis ? 'disabled' : ''} class="${s === st.date ? 'sel' : ''} ${s === today ? 'today' : ''}">${d}</button>`;
+    }
+    cal.innerHTML = h;
+    root.querySelector('[data-m="-1"]').disabled = v <= new Date(now.getFullYear(), now.getMonth(), 1);
+  }
+  function renderSlots() {
+    if (!st.date) { slots.innerHTML = '<p class="hint">Elige primero un día.</p>'; slotsNote.textContent = ''; return; }
+    const list = buildSlots(st.date, getDur(), ocupados, new Date());
+    const libres = list.filter(x => x.available).length;
+    slotsNote.textContent = libres ? `${libres} horarios disponibles` : 'Sin horarios ese día';
+    slots.innerHTML = list.map(x => `<button type="button" class="slot ${x.time === st.time ? 'sel' : ''}" data-t="${x.time}" ${x.available ? '' : 'disabled'}>${x.time}</button>`).join('') || '<p class="hint">No hay horarios para ese día.</p>';
+  }
+  root.addEventListener('click', e => {
+    const m = e.target.closest('[data-m]'), d = e.target.closest('[data-d]'), t = e.target.closest('[data-t]');
+    if (m && !m.disabled) { st.view = new Date(st.view.getFullYear(), st.view.getMonth() + Number(m.dataset.m), 1); renderCal(); }
+    if (d && !d.disabled) { st.date = d.dataset.d; st.time = null; renderCal(); renderSlots(); onChange.forEach(f => f()); }
+    if (t && !t.disabled) { st.time = t.dataset.t; renderSlots(); onChange.forEach(f => f()); }
+  });
+  renderCal(); renderSlots();
+  const api = {
+    get: () => ({ date: st.date, time: st.time }),
+    refresh() { if (st.date && st.time) { const ok = buildSlots(st.date, getDur(), ocupados, new Date()).find(x => x.time === st.time); if (!ok || !ok.available) st.time = null; } renderSlots(); },
+    reset() { st.date = null; st.time = null; renderCal(); renderSlots(); },
+    onChange: f => onChange.push(f)
+  };
+  pickers.push(api);
+  return api;
+}
+
+/* ---------- Flujo público ---------- */
+const svcSel = document.getElementById('svc'), aSvc = document.getElementById('aSvc');
+const opts = Object.keys(CATS).map(c => `<optgroup label="${CATS[c]}">` + SERVICIOS.filter(s => s.cat === c).map(s => `<option value="${s.id}">${s.nombre} · ${money(s.precio)}</option>`).join('') + '</optgroup>').join('');
+svcSel.innerHTML = opts; aSvc.innerHTML = opts;
+const svcById = id => SERVICIOS.find(s => s.id === id) || SERVICIOS[0];
+const svcHint = document.getElementById('svcHint');
+const pubPicker = createPicker(document.getElementById('pubPicker'), () => svcById(svcSel.value).dur);
+function updHint() { const s = svcById(svcSel.value); svcHint.textContent = `${s.desc} Duración aproximada: ${durTxt(s.dur)}.`; pubPicker.refresh(); }
+svcSel.addEventListener('change', updHint);
+updHint();
+
+function showPane(n) {
+  document.querySelectorAll('.pane').forEach(p => p.hidden = Number(p.dataset.pane) !== n);
+  document.querySelectorAll('.step').forEach(s => { const k = Number(s.dataset.step); s.classList.toggle('active', k === n); s.classList.toggle('done', k < n); });
+}
+document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => showPane(Number(b.dataset.back))));
+document.getElementById('to2').addEventListener('click', () => showPane(2));
+document.getElementById('to3').addEventListener('click', () => {
+  const { date, time } = pubPicker.get(), err = document.getElementById('err2');
+  if (!date || !time) { err.textContent = 'Elige un día y una hora para continuar.'; return; }
+  err.textContent = ''; showPane(3);
+});
+let reservaActual = null;
+document.getElementById('to4').addEventListener('click', () => {
+  const nombre = document.getElementById('nombre').value.trim(), tel = document.getElementById('tel').value.trim(), err = document.getElementById('err3');
+  if (nombre.length < 2) { err.textContent = 'Escribe tu nombre.'; return; }
+  if (tel.replace(/\D/g, '').length < 7) { err.textContent = 'Escribe un teléfono válido para confirmar la cita.'; return; }
+  err.textContent = '';
+  const s = svcById(svcSel.value), { date, time } = pubPicker.get();
+  if (!date || !time) { showPane(2); return; }
+  reservaActual = { servicio: s.nombre, precio: s.precio, duration: s.dur, date, time, nombre, telefono: tel, notas: document.getElementById('notas').value.trim() };
+  document.getElementById('summary').innerHTML = [['Servicio', s.nombre], ['Fecha', fechaLarga(date)], ['Hora', `${time} – ${minToHM(hmToMin(time) + s.dur)}`], ['Precio', money(s.precio)], ['Nombre', nombre], ['Teléfono', tel]].map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+  document.getElementById('gcalLink').href = buildCalendarUrl(reservaActual);
+  document.getElementById('waLink').href = buildWhatsappUrl(reservaActual);
+  try { localStorage.setItem('rose-draft', JSON.stringify({ nombre, tel })); } catch (e) {}
+  showPane(4);
+});
+document.getElementById('restart').addEventListener('click', () => { pubPicker.reset(); document.getElementById('notas').value = ''; showPane(1); });
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  if (!reservaActual) return;
+  const txt = resumenTexto(reservaActual);
+  try { await navigator.clipboard.writeText(txt); toast('Resumen copiado'); }
+  catch (e) {
+    const ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('aria-label', 'Resumen de la reserva'); ta.style.cssText = 'width:100%;margin-top:8px;background:var(--bg);border:1px solid var(--line);padding:10px';
+    document.getElementById('copyBtn').closest('.actions').after(ta); ta.focus(); ta.select(); toast('Selecciona y copia el texto');
+    setTimeout(() => ta.remove(), 15000);
+  }
+});
+try { const d = JSON.parse(localStorage.getItem('rose-draft') || 'null'); if (d) { document.getElementById('nombre').value = d.nombre || ''; document.getElementById('tel').value = d.tel || ''; } } catch (e) {}
+
+let toastT; function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2500); }
+
+/* ---------- Menú móvil ---------- */
+const menuBtn = document.getElementById('menuBtn'), navLinks = document.getElementById('navLinks');
+menuBtn.addEventListener('click', () => { const o = navLinks.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', String(o)); });
+navLinks.addEventListener('click', e => { if (e.target.closest('a')) { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); } });
+
+/* ---------- Capacidades del artifact: horarios ocupados (todos) y agenda (dueña) ----------
+   Fuera de claude.ai (por ejemplo en GitHub Pages) window.claude no existe: la página funciona
+   igual, con todos los horarios disponibles y sin la sección Agenda. */
+(async () => {
+  if (!window.claude || typeof window.claude.use !== 'function') return;
+  const db = await window.claude.use('db');
+  if (!db) return;
+  db.collection('ocupados').onSnapshot(snap => {
+    ocupados = snap.docs.filter(d => d.exists).map(d => ({ id: d.id, ...d.data() }));
+    pickers.forEach(p => p.refresh());
+  }, () => {});
+  const user = await window.claude.use('user');
+  let owner = false; try { owner = user ? await user.isOwner() : false; } catch (e) {}
+  if (!owner) return;
+  initAgenda(db);
+})();
+
+function initAgenda(db) {
+  document.getElementById('agenda').hidden = false; document.getElementById('navAgenda').hidden = false;
+  const dayInput = document.getElementById('dayInput'), list = document.getElementById('resList'), aErr = document.getElementById('aErr');
+  let reservas = [], day = ymd(new Date());
+  dayInput.value = day;
+  const admPicker = createPicker(document.getElementById('admPicker'), () => svcById(aSvc.value).dur);
+  aSvc.addEventListener('change', () => admPicker.refresh());
+  function renderList() {
+    const rows = reservas.filter(r => r.date === day).sort((a, b) => a.time.localeCompare(b.time));
+    if (!rows.length) { list.innerHTML = `<div class="empty"><b>Sin reservas este día</b>Las citas que registres aparecerán aquí ordenadas por hora.</div>`; return; }
+    list.innerHTML = rows.map(r => `
+      <div class="res" data-id="${r.id}">
+        <span class="t">${esc(r.time)}</span>
+        <div style="min-width:0"><div class="who">${esc(r.nombre)}<span class="pill ${esc(r.status)}">${esc(r.status)}</span></div><div class="what">${esc(r.servicio)} · ${durTxt(r.duration)} · ${esc(r.telefono || '')}${r.notas ? ' · ' + esc(r.notas) : ''}</div></div>
+        <div class="tools">
+          <select data-status aria-label="Estado"><option ${r.status === 'pendiente' ? 'selected' : ''}>pendiente</option><option ${r.status === 'confirmada' ? 'selected' : ''}>confirmada</option><option ${r.status === 'cancelada' ? 'selected' : ''}>cancelada</option></select>
+          <a href="${buildCalendarUrl(r)}" target="_blank" rel="noopener">Google Calendar</a>
+          <button class="link" data-del>Eliminar</button>
+        </div>
+      </div>`).join('');
+  }
+  db.collection('reservas').onSnapshot(snap => { reservas = snap.docs.filter(d => d.exists).map(d => ({ id: d.id, ...d.data() })); renderList(); }, () => {});
+  const setDay = s => { day = s; dayInput.value = s; renderList(); };
+  dayInput.addEventListener('change', () => { if (dayInput.value) setDay(dayInput.value); });
+  document.getElementById('dayPrev').addEventListener('click', () => { const d = parseYmd(day); d.setDate(d.getDate() - 1); setDay(ymd(d)); });
+  document.getElementById('dayNext').addEventListener('click', () => { const d = parseYmd(day); d.setDate(d.getDate() + 1); setDay(ymd(d)); });
+  document.getElementById('dayToday').addEventListener('click', () => setDay(ymd(new Date())));
+  list.addEventListener('change', async e => {
+    const sel = e.target.closest('[data-status]'); if (!sel) return;
+    const id = sel.closest('.res').dataset.id, status = sel.value;
+    try { await db.doc('reservas/' + id).update({ status }); await db.doc('ocupados/' + id).update({ status }); toast('Estado actualizado'); }
+    catch (err) { toast('No se pudo actualizar: ' + (err && err.code || 'error')); }
+  });
+  list.addEventListener('click', async e => {
+    const b = e.target.closest('[data-del]'); if (!b) return;
+    const id = b.closest('.res').dataset.id;
+    if (b.dataset.armed !== '1') { b.dataset.armed = '1'; b.textContent = '¿Eliminar? Confirmar'; setTimeout(() => { b.dataset.armed = ''; b.textContent = 'Eliminar'; }, 3000); return; }
+    try { await db.doc('reservas/' + id).delete(); await db.doc('ocupados/' + id).delete(); toast('Reserva eliminada'); }
+    catch (err) { toast('No se pudo eliminar: ' + (err && err.code || 'error')); }
+  });
+  document.getElementById('aSave').addEventListener('click', async () => {
+    const s = svcById(aSvc.value), { date, time } = admPicker.get(), nombre = document.getElementById('aNombre').value.trim(), tel = document.getElementById('aTel').value.trim(), notas = document.getElementById('aNotas').value.trim();
+    if (!date || !time) { aErr.textContent = 'Elige día y hora.'; return; }
+    if (!nombre) { aErr.textContent = 'Escribe el nombre de la clienta.'; return; }
+    aErr.textContent = '';
+    const btn = document.getElementById('aSave'); btn.disabled = true;
+    const id = db.collection('reservas').doc().id;
+    const r = { servicio: s.nombre, servicioId: s.id, precio: s.precio, duration: s.dur, date, time, nombre, telefono: tel, notas, status: 'confirmada', creada: new Date().toISOString() };
+    try {
+      await db.doc('reservas/' + id).set(r);
+      await db.doc('ocupados/' + id).set({ date, time, duration: s.dur, status: 'confirmada' });
+      toast('Reserva guardada'); setDay(date); admPicker.reset();
+      document.getElementById('aNombre').value = ''; document.getElementById('aTel').value = ''; document.getElementById('aNotas').value = '';
+    } catch (err) { aErr.textContent = 'No se pudo guardar (' + (err && err.code || 'error') + '). Intenta de nuevo.'; }
+    btn.disabled = false;
+  });
+}
+</script>
+</body>
+</html>
