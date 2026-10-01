@@ -18,15 +18,15 @@
   --mauve: #E6BED1;
   --lavender: #DCB4DA;
 
-  --bg: #F8EDED;            /* tinte muy claro de --blush para lectura cómoda */
-  --surface: var(--blush);
-  --surface-2: #FCF6F6;
-  --fg: #4A2A3C;
-  --muted: #7E5A6E;
+  --bg: var(--blush);
+  --surface: var(--petal);
+  --surface-2: #F4E2E2;     /* tarjetas, apenas más claras que el fondo */
+  --fg: #3F2233;
+  --muted: #654356;
   --rose: var(--lavender);
   --rose-deep: var(--orchid);
-  --rose-ink: #4A2A3C;
-  --accent-ink: #9A5A86;    /* rosa-malva profundo para texto destacado */
+  --rose-ink: #3F2233;
+  --accent-ink: #8A4A76;    /* rosa-malva profundo para texto destacado */
   --gold: #B8913A;
   --gold-soft: #E3CB8F;
   --line: var(--mauve);
@@ -126,7 +126,7 @@ header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; back
 .card .btn { align-self: flex-start; margin-top: 4px; }
 
 /* ---- Nosotras ---- */
-.about { background: linear-gradient(135deg, var(--blush), var(--petal)); }
+.about { background: linear-gradient(135deg, var(--petal), var(--mauve)); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
 .values { display: grid; gap: 22px; }
 .value { display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start; }
