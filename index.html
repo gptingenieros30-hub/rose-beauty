@@ -124,6 +124,31 @@ header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; back
 .card .price { font-family: var(--serif); font-size: 1.4rem; font-weight: 500; }
 .card .dur { font-size: .72rem; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
 .card .btn { align-self: flex-start; margin-top: 6px; }
+.add-btn[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.card.in-cart .ico { background: var(--rosewood); color: #fff; }
+
+/* ---- Carrito ---- */
+.svc-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 8px 32px; }
+.svc-group { border: 0; padding: 0; margin: 0; display: grid; gap: 6px; min-width: 0; }
+.svc-group legend { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 500; padding: 14px 0 6px; }
+.svc-opt { display: grid; grid-template-columns: auto auto 1fr auto; gap: 12px; align-items: center; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; min-width: 0; transition: border-color .2s, background .2s; }
+.svc-opt:hover { border-color: var(--fg); }
+.svc-opt:has(input:checked) { background: var(--blush); border-color: var(--rosewood); }
+.svc-opt input { width: 18px; height: 18px; accent-color: var(--rosewood); margin: 0; }
+.svc-opt .ico { width: 32px; height: 32px; }
+.svc-opt .ico svg { width: 17px; height: 17px; }
+.svc-name { font-size: .95rem; min-width: 0; }
+.svc-name small { display: block; font-size: .72rem; color: var(--muted); letter-spacing: .06em; }
+.svc-price { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; white-space: nowrap; }
+.cart-total { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; justify-content: flex-end; padding-top: 6px; color: var(--muted); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+.cart-total b { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; color: var(--fg); letter-spacing: 0; text-transform: none; }
+.cart-bar { position: fixed; z-index: 30; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: min(560px, calc(100% - 32px)); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 10px 10px 22px; background: var(--fg); color: var(--bg); border-radius: 999px; box-shadow: var(--shadow); font-size: .85rem; }
+.cart-bar .btn-primary { background: var(--rosewood); border-color: var(--rosewood); color: #fff; flex: none; }
+.cart-bar .btn-primary:hover { background: var(--bg); border-color: var(--bg); color: var(--fg); }
+.sum-list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 4px; font-size: 1.15rem; }
+.sum-list li { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px dashed var(--line); padding-bottom: 4px; }
+.summary .wide { grid-column: 1 / -1; }
+body:has(.cart-bar:not([hidden])) footer { padding-bottom: 96px; }
 
 /* ---- Nosotras ---- */
 .about { background: var(--surface); }
@@ -291,7 +316,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div>
       <span class="eyebrow">Peluquería · Manicure · Estética</span>
       <h1>Belleza con la calma de <em>un salón de otra época</em></h1>
-      <p class="lead">Cortes, color, manicure y tratamientos en un espacio pensado para que cada visita sea un momento tuyo. Elige tu servicio, escoge fecha y hora, y recibe la cita directo en tu calendario.</p>
+      <p class="lead">Cortes, color, manicure y tratamientos en un espacio pensado para que cada visita sea un momento tuyo. Arma tu cita con uno o varios servicios, escoge fecha y hora, y recíbela directo en tu calendario.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#reservar">Reservar cita</a>
         <a class="btn btn-gold" href="#servicios">Ver servicios</a>
@@ -343,7 +368,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <div class="sec-head center">
       <span class="eyebrow center">Reserva</span>
       <h2>Reserva tu cita</h2>
-      <p class="lead">Elige el servicio, la fecha y la hora. Al final podrás añadir la cita a tu Google Calendar y confirmarla con nosotras por WhatsApp.</p>
+      <p class="lead">Elige uno o varios servicios, la fecha y la hora. Al final podrás añadir la cita a tu Google Calendar y confirmarla con nosotras por WhatsApp.</p>
     </div>
     <div class="booking" id="booking">
       <div class="steps" aria-hidden="true">
@@ -354,11 +379,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
 
       <div class="pane" data-pane="1">
-        <div class="field">
-          <label for="svc">Servicio</label>
-          <select id="svc"></select>
-        </div>
-        <p class="hint" id="svcHint"></p>
+        <p class="hint">Marca todos los servicios que quieres en la misma cita. Los hacemos uno tras otro y buscamos un horario para el bloque completo.</p>
+        <div class="svc-list" id="svcList"></div>
+        <div class="cart-total" id="cartTotal" aria-live="polite"></div>
+        <p class="err" id="err1"></p>
         <div class="pane-nav"><span></span><button class="btn btn-primary" id="to2">Elegir fecha y hora</button></div>
       </div>
 
@@ -448,6 +472,10 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
     <span>Precios y datos de contacto de ejemplo, pendientes de confirmar por el salón.</span>
   </div>
 </footer>
+<div class="cart-bar" id="cartBar" hidden>
+  <span id="cartBarText"></span>
+  <button class="btn btn-primary btn-sm" id="cartBarBtn">Reservar</button>
+</div>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -516,12 +544,14 @@ function buildCalendarUrl(r) {
   const [y, mo, d] = r.date.split('-').map(Number), [h, mi] = r.time.split(':').map(Number);
   const start = new Date(y, mo - 1, d, h, mi), end = new Date(start.getTime() + r.duration * 60000);
   const fmt = x => x.getFullYear() + pad(x.getMonth() + 1) + pad(x.getDate()) + 'T' + pad(x.getHours()) + pad(x.getMinutes()) + '00';
-  const details = [`Servicio: ${r.servicio}`, `Duración: ${durTxt(r.duration)}`, `Precio: ${money(r.precio)}`, r.nombre ? `Cliente: ${r.nombre}` : '', r.telefono ? `Teléfono: ${r.telefono}` : '', r.notas ? `Notas: ${r.notas}` : ''].filter(Boolean).join('\n');
+  const lineas = r.servicios && r.servicios.length > 1 ? ['Servicios:', ...r.servicios.map(s => `• ${s.nombre} (${durTxt(s.dur)}, ${money(s.precio)})`)] : [`Servicio: ${r.servicio}`];
+  const details = [...lineas, `Duración total: ${durTxt(r.duration)}`, `Total: ${money(r.precio)}`, r.nombre ? `Cliente: ${r.nombre}` : '', r.telefono ? `Teléfono: ${r.telefono}` : '', r.notas ? `Notas: ${r.notas}` : ''].filter(Boolean).join('\n');
   const p = new URLSearchParams({ action: 'TEMPLATE', text: `${r.servicio} · ${SALON.nombre}`, dates: fmt(start) + '/' + fmt(end), details, location: SALON.direccion, ctz: SALON.tz, add: SALON.email });
   return 'https://calendar.google.com/calendar/render?' + p.toString();
 }
 function resumenTexto(r) {
-  return `Hola Rose, quiero reservar:\n• ${r.servicio} (${durTxt(r.duration)}, ${money(r.precio)})\n• ${fechaLarga(r.date)}, ${r.time}\n• Nombre: ${r.nombre}\n• Teléfono: ${r.telefono}` + (r.notas ? `\n• Notas: ${r.notas}` : '');
+  const lineas = (r.servicios || [{ nombre: r.servicio, dur: r.duration, precio: r.precio }]).map(s => `• ${s.nombre} (${durTxt(s.dur)}, ${money(s.precio)})`).join('\n');
+  return `Hola Rose, quiero reservar:\n${lineas}\n• Total: ${money(r.precio)}, ${durTxt(r.duration)}\n• ${fechaLarga(r.date)}, ${r.time}\n• Nombre: ${r.nombre}\n• Teléfono: ${r.telefono}` + (r.notas ? `\n• Notas: ${r.notas}` : '');
 }
 function buildWhatsappUrl(r) { return 'https://wa.me/' + SALON.whatsapp + '?text=' + encodeURIComponent(resumenTexto(r)); }
 
@@ -537,7 +567,7 @@ grid.innerHTML = SERVICIOS.map(s => `
     <h3>${s.nombre}</h3>
     <p>${s.desc}</p>
     <div class="meta"><span class="price num">${money(s.precio)}</span><span class="dur">${durTxt(s.dur)}</span></div>
-    <button class="btn btn-gold btn-sm" data-book="${s.id}">Reservar</button>
+    <button class="btn btn-gold btn-sm add-btn" data-add="${s.id}" aria-pressed="false">Agregar</button>
   </article>`).join('');
 document.getElementById('filters').addEventListener('click', e => {
   const b = e.target.closest('.chip'); if (!b) return;
@@ -546,11 +576,40 @@ document.getElementById('filters').addEventListener('click', e => {
   grid.querySelectorAll('.card').forEach(c => { c.hidden = cat !== 'todos' && c.dataset.cat !== cat; });
 });
 grid.addEventListener('click', e => {
-  const b = e.target.closest('[data-book]'); if (!b) return;
-  svcSel.value = b.dataset.book; updHint();
-  showPane(1);
-  document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' });
+  const b = e.target.closest('[data-add]'); if (!b) return;
+  toggleCart(b.dataset.add);
 });
+
+/* ---------- Carrito de servicios (selección múltiple) ---------- */
+const cart = new Set();
+const svcById = id => SERVICIOS.find(s => s.id === id) || SERVICIOS[0];
+const cartItems = () => SERVICIOS.filter(s => cart.has(s.id));
+const cartDur = () => cartItems().reduce((a, s) => a + s.dur, 0);
+const cartPrice = () => cartItems().reduce((a, s) => a + s.precio, 0);
+function toggleCart(id, on) {
+  const add = on === undefined ? !cart.has(id) : on;
+  if (add) cart.add(id); else cart.delete(id);
+  renderCart();
+}
+function renderCart() {
+  const n = cart.size, dur = cartDur(), total = cartPrice();
+  grid.querySelectorAll('[data-add]').forEach(b => {
+    const on = cart.has(b.dataset.add);
+    b.setAttribute('aria-pressed', String(on));
+    b.textContent = on ? '✓ Agregado' : 'Agregar';
+    b.closest('.card').classList.toggle('in-cart', on);
+  });
+  document.querySelectorAll('#svcList input[type=checkbox]').forEach(c => { c.checked = cart.has(c.value); });
+  const resumen = n ? `${n} ${n === 1 ? 'servicio' : 'servicios'} · ${durTxt(dur)} · ${money(total)}` : 'Aún no has elegido servicios';
+  document.getElementById('cartTotal').innerHTML = n
+    ? `<span>${n} ${n === 1 ? 'servicio' : 'servicios'}</span><span>${durTxt(dur)}</span><b class="num">${money(total)}</b>`
+    : '<span>Elige uno o varios servicios</span>';
+  const bar = document.getElementById('cartBar');
+  bar.hidden = n === 0;
+  document.getElementById('cartBarText').textContent = resumen;
+  if (n) document.getElementById('err1').textContent = '';
+  pubPicker.refresh();
+}
 
 /* ---------- Selector de fecha y hora (reutilizable) ---------- */
 function createPicker(root, getDur) {
@@ -607,22 +666,36 @@ function createPicker(root, getDur) {
 }
 
 /* ---------- Flujo público ---------- */
-const svcSel = document.getElementById('svc'), aSvc = document.getElementById('aSvc');
-const opts = Object.keys(CATS).map(c => `<optgroup label="${CATS[c]}">` + SERVICIOS.filter(s => s.cat === c).map(s => `<option value="${s.id}">${s.nombre} · ${money(s.precio)}</option>`).join('') + '</optgroup>').join('');
-svcSel.innerHTML = opts; aSvc.innerHTML = opts;
-const svcById = id => SERVICIOS.find(s => s.id === id) || SERVICIOS[0];
-const svcHint = document.getElementById('svcHint');
-const pubPicker = createPicker(document.getElementById('pubPicker'), () => svcById(svcSel.value).dur);
-function updHint() { const s = svcById(svcSel.value); svcHint.textContent = `${s.desc} Duración aproximada: ${durTxt(s.dur)}.`; pubPicker.refresh(); }
-svcSel.addEventListener('change', updHint);
-updHint();
+const aSvc = document.getElementById('aSvc');
+aSvc.innerHTML = Object.keys(CATS).map(c => `<optgroup label="${CATS[c]}">` + SERVICIOS.filter(s => s.cat === c).map(s => `<option value="${s.id}">${s.nombre} · ${money(s.precio)}</option>`).join('') + '</optgroup>').join('');
+document.getElementById('svcList').innerHTML = Object.keys(CATS).map(c => `
+  <fieldset class="svc-group"><legend>${CATS[c]}</legend>` +
+  SERVICIOS.filter(s => s.cat === c).map(s => `
+    <label class="svc-opt" for="chk-${s.id}">
+      <input type="checkbox" id="chk-${s.id}" value="${s.id}">
+      <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-${s.icon}"/></svg></span>
+      <span class="svc-name">${s.nombre}<small>${durTxt(s.dur)}</small></span>
+      <span class="svc-price num">${money(s.precio)}</span>
+    </label>`).join('') + '</fieldset>').join('');
+document.getElementById('svcList').addEventListener('change', e => { if (e.target.matches('input[type=checkbox]')) toggleCart(e.target.value, e.target.checked); });
+const pubPicker = createPicker(document.getElementById('pubPicker'), () => cartDur() || SALON.paso);
+document.getElementById('cartBarBtn').addEventListener('click', () => {
+  showPane(1);
+  document.getElementById('reservar').scrollIntoView({ behavior: 'smooth' });
+});
+renderCart();
 
 function showPane(n) {
   document.querySelectorAll('.pane').forEach(p => p.hidden = Number(p.dataset.pane) !== n);
   document.querySelectorAll('.step').forEach(s => { const k = Number(s.dataset.step); s.classList.toggle('active', k === n); s.classList.toggle('done', k < n); });
 }
 document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', () => showPane(Number(b.dataset.back))));
-document.getElementById('to2').addEventListener('click', () => showPane(2));
+document.getElementById('to2').addEventListener('click', () => {
+  const err = document.getElementById('err1');
+  if (!cart.size) { err.textContent = 'Elige al menos un servicio para continuar.'; return; }
+  if (cartDur() > SALON.cierra - SALON.abre) { err.textContent = `La duración total (${durTxt(cartDur())}) supera la jornada del salón. Divide los servicios en dos citas.`; return; }
+  err.textContent = ''; pubPicker.refresh(); showPane(2);
+});
 document.getElementById('to3').addEventListener('click', () => {
   const { date, time } = pubPicker.get(), err = document.getElementById('err2');
   if (!date || !time) { err.textContent = 'Elige un día y una hora para continuar.'; return; }
@@ -634,16 +707,21 @@ document.getElementById('to4').addEventListener('click', () => {
   if (nombre.length < 2) { err.textContent = 'Escribe tu nombre.'; return; }
   if (tel.replace(/\D/g, '').length < 7) { err.textContent = 'Escribe un teléfono válido para confirmar la cita.'; return; }
   err.textContent = '';
-  const s = svcById(svcSel.value), { date, time } = pubPicker.get();
+  const items = cartItems(), { date, time } = pubPicker.get();
+  if (!items.length) { showPane(1); return; }
   if (!date || !time) { showPane(2); return; }
-  reservaActual = { servicio: s.nombre, precio: s.precio, duration: s.dur, date, time, nombre, telefono: tel, notas: document.getElementById('notas').value.trim() };
-  document.getElementById('summary').innerHTML = [['Servicio', s.nombre], ['Fecha', fechaLarga(date)], ['Hora', `${time} – ${minToHM(hmToMin(time) + s.dur)}`], ['Precio', money(s.precio)], ['Nombre', nombre], ['Teléfono', tel]].map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
+  const dur = cartDur(), total = cartPrice();
+  reservaActual = { servicio: items.map(s => s.nombre).join(', '), servicios: items.map(s => ({ nombre: s.nombre, dur: s.dur, precio: s.precio })), precio: total, duration: dur, date, time, nombre, telefono: tel, notas: document.getElementById('notas').value.trim() };
+  const lista = `<ul class="sum-list">${items.map(s => `<li><span>${esc(s.nombre)}</span><span class="num">${money(s.precio)}</span></li>`).join('')}</ul>`;
+  document.getElementById('summary').innerHTML =
+    `<div class="wide"><dt>${items.length === 1 ? 'Servicio' : 'Servicios'}</dt><dd>${lista}</dd></div>` +
+    [['Fecha', fechaLarga(date)], ['Hora', `${time} – ${minToHM(hmToMin(time) + dur)} (${durTxt(dur)})`], ['Total', money(total)], ['Nombre', nombre], ['Teléfono', tel]].map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('');
   document.getElementById('gcalLink').href = buildCalendarUrl(reservaActual);
   document.getElementById('waLink').href = buildWhatsappUrl(reservaActual);
   try { localStorage.setItem('rose-draft', JSON.stringify({ nombre, tel })); } catch (e) {}
   showPane(4);
 });
-document.getElementById('restart').addEventListener('click', () => { pubPicker.reset(); document.getElementById('notas').value = ''; showPane(1); });
+document.getElementById('restart').addEventListener('click', () => { cart.clear(); renderCart(); pubPicker.reset(); document.getElementById('notas').value = ''; showPane(1); });
 document.getElementById('copyBtn').addEventListener('click', async () => {
   if (!reservaActual) return;
   const txt = resumenTexto(reservaActual);
