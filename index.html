@@ -113,6 +113,10 @@ header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; back
 .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 48px 32px; }
 .card { position: relative; background: transparent; border-top: 1px solid var(--fg); padding: 22px 0 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card-top { display: flex; align-items: center; gap: 12px; }
+.ico { width: 40px; height: 40px; flex: none; border-radius: 999px; background: var(--blush); color: var(--gold); display: grid; place-items: center; transition: background .2s, color .2s; }
+.ico svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.card:hover .ico { background: var(--rosewood); color: #fff; }
 .card .cat { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
 .card h3 { font-size: 1.65rem; }
 .card p { margin: 0; color: var(--muted); font-size: .94rem; font-weight: 300; flex: 1; }
@@ -245,6 +249,23 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       <path d="M3.5 9.5 L 9.5 9.5 L 9.5 1.5 L 3.5 5 Z" fill="var(--lip)"/>
     </g>
   </symbol>
+  <!-- Íconos de servicios: línea fina 24x24, color por currentColor -->
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M7.8 16.2 18 4M16.2 16.2 6 4"/></symbol>
+  <symbol id="i-comb" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="4" rx="1"/><path d="M5 11v6M8 11v7M11 11v6M14 11v7M17 11v6M20 11v5"/></symbol>
+  <symbol id="i-dryer" viewBox="0 0 24 24"><circle cx="9" cy="9" r="5"/><circle cx="9" cy="9" r="1.5"/><path d="M14 7h6v4h-6M7.5 13.8 6.5 21h3l1-7.2"/></symbol>
+  <symbol id="i-color" viewBox="0 0 24 24"><path d="M3 13h12a6 5 0 0 1-12 0z"/><path d="M12 11 19 4M17.5 2.5l3 3"/></symbol>
+  <symbol id="i-strands" viewBox="0 0 24 24"><path d="M7 3c-2 4 2 6 0 10s2 6 0 8M12 3c-2 4 2 6 0 10s2 6 0 8M17 3c-2 4 2 6 0 10s2 6 0 8"/></symbol>
+  <symbol id="i-foil" viewBox="0 0 24 24"><path d="M6 3c-2 4 2 6 0 10s2 6 0 8"/><rect x="10" y="5" width="9" height="14" rx="1"/><path d="M12.5 9h4M12.5 12h4M12.5 15h4"/></symbol>
+  <symbol id="i-straight" viewBox="0 0 24 24"><path d="M5 3v18M9 3v18M13 3v18"/><path d="M19 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M11 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/><path d="M19 15.5l.7 1.6 1.6.7-1.6.7-.7 1.6-.7-1.6-1.6-.7 1.6-.7z"/></symbol>
+  <symbol id="i-polish" viewBox="0 0 24 24"><rect x="9.5" y="2.5" width="5" height="7" rx="1"/><rect x="7" y="9.5" width="10" height="11.5" rx="2"/><path d="M10 14h4"/></symbol>
+  <symbol id="i-lamp" viewBox="0 0 24 24"><path d="M3 19a9 9 0 0 1 18 0M2 19h20M12 3v2.5M5.2 6.2l1.6 1.6M18.8 6.2l-1.6 1.6"/></symbol>
+  <symbol id="i-nail" viewBox="0 0 24 24"><path d="M8 21v-6a4 4 0 0 1 8 0v6"/><path d="M9.8 13C9.8 8 11 4.5 12 3c1 1.5 2.2 5 2.2 10z"/></symbol>
+  <symbol id="i-spa" viewBox="0 0 24 24"><path d="M3 13h18l-2 7H5z"/><path d="M7 9c1-1 2-1 3 0s2 1 3 0 2-1 3 0M9 5c1-1 2-1 3 0s2 1 3 0"/></symbol>
+  <symbol id="i-brush" viewBox="0 0 24 24"><path d="M4 20l1-3 9-9 2 2-9 9z"/><path d="M15 7l3-3 2 2-3 3"/><circle cx="18.5" cy="17.5" r="1"/><circle cx="15" cy="20" r=".6"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+  <symbol id="i-vial" viewBox="0 0 24 24"><rect x="8" y="8" width="8" height="13" rx="2"/><path d="M10 8V5h4v3M9.5 3h5M8 14h8"/></symbol>
+  <symbol id="i-brow" viewBox="0 0 24 24"><path d="M4 8.5c4-3 11-3 16 0"/><path d="M3 15c3-3.5 15-3.5 18 0-3 3.5-15 3.5-18 0z"/><circle cx="12" cy="15" r="2"/></symbol>
 </svg>
 
 <header>
@@ -441,22 +462,22 @@ const SALON = {
 };
 const CATS = { peluqueria: 'Peluquería', unas: 'Manicure & Pedicure', tratamientos: 'Tratamientos' };
 const SERVICIOS = [
-  { id: 'corte-dama', cat: 'peluqueria', nombre: 'Corte de dama', desc: 'Corte a tu medida con lavado y acabado natural.', dur: 45, precio: 55000 },
-  { id: 'corte-peinado', cat: 'peluqueria', nombre: 'Corte y peinado', desc: 'Corte más secado con cepillo o plancha.', dur: 60, precio: 75000 },
-  { id: 'brushing', cat: 'peluqueria', nombre: 'Brushing', desc: 'Lavado y secado con cepillo, liso u ondas suaves.', dur: 40, precio: 40000 },
-  { id: 'color', cat: 'peluqueria', nombre: 'Color completo', desc: 'Tinte de raíz a puntas con línea sin amoníaco.', dur: 120, precio: 180000 },
-  { id: 'balayage', cat: 'peluqueria', nombre: 'Balayage', desc: 'Aclarado a mano alzada con matiz y tratamiento.', dur: 180, precio: 320000 },
-  { id: 'mechas', cat: 'peluqueria', nombre: 'Mechas e iluminaciones', desc: 'Luces finas o contrastes, con matiz incluido.', dur: 150, precio: 260000 },
-  { id: 'keratina', cat: 'peluqueria', nombre: 'Keratina', desc: 'Alisado progresivo sin formol, efecto hasta 3 meses.', dur: 150, precio: 240000 },
-  { id: 'peinado-evento', cat: 'peluqueria', nombre: 'Peinado de evento', desc: 'Recogidos, ondas o trenzas para una ocasión especial.', dur: 60, precio: 90000 },
-  { id: 'mani-clasico', cat: 'unas', nombre: 'Manicure clásico', desc: 'Limado, cutícula, hidratación y esmalte tradicional.', dur: 45, precio: 35000 },
-  { id: 'mani-semi', cat: 'unas', nombre: 'Manicure semipermanente', desc: 'Esmaltado en gel con secado en lámpara, dura 3 semanas.', dur: 60, precio: 60000 },
-  { id: 'acrilicas', cat: 'unas', nombre: 'Uñas acrílicas o en gel', desc: 'Construcción con forma a elegir: almendra, coffin, cuadrada.', dur: 120, precio: 140000 },
-  { id: 'pedi-spa', cat: 'unas', nombre: 'Pedicure spa', desc: 'Exfoliación, mascarilla, masaje y esmaltado.', dur: 60, precio: 55000 },
-  { id: 'nail-art', cat: 'unas', nombre: 'Nail art', desc: 'Diseños a mano alzada o con decoración, precio por mano.', dur: 30, precio: 25000 },
-  { id: 'hidratacion', cat: 'tratamientos', nombre: 'Hidratación profunda', desc: 'Mascarilla reparadora con vapor para cabello seco o teñido.', dur: 45, precio: 70000 },
-  { id: 'botox', cat: 'tratamientos', nombre: 'Botox capilar', desc: 'Reconstrucción y brillo sin alisar la forma natural.', dur: 90, precio: 160000 },
-  { id: 'cejas', cat: 'tratamientos', nombre: 'Diseño y laminado de cejas', desc: 'Perfilado con hilo, laminado y tinte a juego.', dur: 40, precio: 65000 }
+  { id: 'corte-dama', icon: 'scissors', cat: 'peluqueria', nombre: 'Corte de dama', desc: 'Corte a tu medida con lavado y acabado natural.', dur: 45, precio: 55000 },
+  { id: 'corte-peinado', icon: 'comb', cat: 'peluqueria', nombre: 'Corte y peinado', desc: 'Corte más secado con cepillo o plancha.', dur: 60, precio: 75000 },
+  { id: 'brushing', icon: 'dryer', cat: 'peluqueria', nombre: 'Brushing', desc: 'Lavado y secado con cepillo, liso u ondas suaves.', dur: 40, precio: 40000 },
+  { id: 'color', icon: 'color', cat: 'peluqueria', nombre: 'Color completo', desc: 'Tinte de raíz a puntas con línea sin amoníaco.', dur: 120, precio: 180000 },
+  { id: 'balayage', icon: 'strands', cat: 'peluqueria', nombre: 'Balayage', desc: 'Aclarado a mano alzada con matiz y tratamiento.', dur: 180, precio: 320000 },
+  { id: 'mechas', icon: 'foil', cat: 'peluqueria', nombre: 'Mechas e iluminaciones', desc: 'Luces finas o contrastes, con matiz incluido.', dur: 150, precio: 260000 },
+  { id: 'keratina', icon: 'straight', cat: 'peluqueria', nombre: 'Keratina', desc: 'Alisado progresivo sin formol, efecto hasta 3 meses.', dur: 150, precio: 240000 },
+  { id: 'peinado-evento', icon: 'sparkle', cat: 'peluqueria', nombre: 'Peinado de evento', desc: 'Recogidos, ondas o trenzas para una ocasión especial.', dur: 60, precio: 90000 },
+  { id: 'mani-clasico', icon: 'polish', cat: 'unas', nombre: 'Manicure clásico', desc: 'Limado, cutícula, hidratación y esmalte tradicional.', dur: 45, precio: 35000 },
+  { id: 'mani-semi', icon: 'lamp', cat: 'unas', nombre: 'Manicure semipermanente', desc: 'Esmaltado en gel con secado en lámpara, dura 3 semanas.', dur: 60, precio: 60000 },
+  { id: 'acrilicas', icon: 'nail', cat: 'unas', nombre: 'Uñas acrílicas o en gel', desc: 'Construcción con forma a elegir: almendra, coffin, cuadrada.', dur: 120, precio: 140000 },
+  { id: 'pedi-spa', icon: 'spa', cat: 'unas', nombre: 'Pedicure spa', desc: 'Exfoliación, mascarilla, masaje y esmaltado.', dur: 60, precio: 55000 },
+  { id: 'nail-art', icon: 'brush', cat: 'unas', nombre: 'Nail art', desc: 'Diseños a mano alzada o con decoración, precio por mano.', dur: 30, precio: 25000 },
+  { id: 'hidratacion', icon: 'drop', cat: 'tratamientos', nombre: 'Hidratación profunda', desc: 'Mascarilla reparadora con vapor para cabello seco o teñido.', dur: 45, precio: 70000 },
+  { id: 'botox', icon: 'vial', cat: 'tratamientos', nombre: 'Botox capilar', desc: 'Reconstrucción y brillo sin alisar la forma natural.', dur: 90, precio: 160000 },
+  { id: 'cejas', icon: 'brow', cat: 'tratamientos', nombre: 'Diseño y laminado de cejas', desc: 'Perfilado con hilo, laminado y tinte a juego.', dur: 40, precio: 65000 }
 ];
 
 /* ---------- Utilidades puras ---------- */
@@ -512,7 +533,7 @@ const pickers = [];
 const grid = document.getElementById('grid');
 grid.innerHTML = SERVICIOS.map(s => `
   <article class="card" data-cat="${s.cat}">
-    <span class="cat">${CATS[s.cat]}</span>
+    <div class="card-top"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-${s.icon}"/></svg></span><span class="cat">${CATS[s.cat]}</span></div>
     <h3>${s.nombre}</h3>
     <p>${s.desc}</p>
     <div class="meta"><span class="price num">${money(s.precio)}</span><span class="dur">${durTxt(s.dur)}</span></div>
